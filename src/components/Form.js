@@ -11,6 +11,8 @@ const Form = () => {
         sintomas: ''
     });
 
+    const [ error, actualizarError ] = useState(false)
+
     // funcion que se ejecutara cada vez que el usuario escribe en el input para validar lo que hace
     const actualizarState = e => {
         actualizarCita({
@@ -23,14 +25,23 @@ const Form = () => {
     const { mascota, propietario, fecha, hora, sintomas } = cita;
 
     // Cuando el usuario envia el formulario
-    const submitCita = () => {
-        alert('Enviando')
+    const submitCita = e => {
+        e.preventDefault();
+
+        // Validacion
+
+        if(mascota.trim() === '' || propietario.trim() === '' || fecha.trim() === '' || hora.trim() === '' || sintomas.trim() === ''){
+            actualizarError(true);
+            return;
+        }
     }
 
     return (
         <Fragment>
 
         <h2> Crear Cita </h2>
+
+        { error ? <p className="alerta-error">Todos los campos son obligatorios</p> : null }
 
         <form
             onSubmit={submitCita}
