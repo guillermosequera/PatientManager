@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react';
+import uuid from 'uuid/dist/v4';
 
 const Form = () => {
 
@@ -35,6 +36,14 @@ const Form = () => {
             return;
         }
     }
+
+    // Eliminando el mensaje previo
+    actualizarError(false);
+
+
+    // Asignando un ID
+
+    cita.id = uuid();
 
     return (
         <Fragment>
