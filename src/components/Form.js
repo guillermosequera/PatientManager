@@ -7,7 +7,7 @@ const Form = ({crearCita}) => {
     const [ cita, actualizarCita ] = useState({
         mascota: '',
         propietario: '',
-        id: '',
+        //id: '',
         fecha: '',
         hora: '',
         sintomas: ''
@@ -21,7 +21,6 @@ const Form = ({crearCita}) => {
         actualizarCita({
             ...cita,
             [e.target.name]: e.target.value,
-            id: uuidv4()
         })
     }
 
@@ -35,26 +34,36 @@ const Form = ({crearCita}) => {
         actualizarCita({
             ...cita,
             [e.target.name]: e.target.value,
-            id: uuidv4()
         })
 
-        crearCita(cita);
         
         // Validacion
 
         if(mascota.trim() === '' || propietario.trim() === '' || fecha.trim() === '' || hora.trim() === '' || sintomas.trim() === ''){
             actualizarError(true);
-            actualizarError(false);
             return;
         }
+            
+        // Eliminando el mensaje previo
+        actualizarError(false);
+
+        //Asignando un ID
+        uuidv4();
+
+        //Crear la cita
+        crearCita(cita);
+
+        //reiniciando el formulario
+        actualizarCita({
+            mascota: '',
+            propietario: '',
+            fecha: '',
+            hora: '',
+            sintomas: ''
+        })
+
     }
 
-    // Eliminando el mensaje previo
-    // actualizarError(false);
-
-    //Crear la cita
-    // crearCita(cita);
-    
 
     return (
         <Fragment>
