@@ -7,7 +7,6 @@ const Form = ({crearCita}) => {
     const [ cita, actualizarCita ] = useState({
         mascota: '',
         propietario: '',
-        //id: '',
         fecha: '',
         hora: '',
         sintomas: ''
@@ -17,10 +16,9 @@ const Form = ({crearCita}) => {
 
     // funcion que se ejecutara cada vez que el usuario escribe en el input para validar lo que hace
     const actualizarState = e => {
-        console.log("actualizarState")
         actualizarCita({
             ...cita,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value
         })
     }
 
@@ -30,11 +28,6 @@ const Form = ({crearCita}) => {
     // Cuando el usuario envia el formulario y asignamos ID
     const submitCita = e => {
         e.preventDefault();
-        console.log("submitCita")
-        actualizarCita({
-            ...cita,
-            [e.target.name]: e.target.value,
-        })
 
         
         // Validacion
@@ -48,7 +41,7 @@ const Form = ({crearCita}) => {
         actualizarError(false);
 
         //Asignando un ID
-        uuidv4();
+        cita.id = uuidv4();
 
         //Crear la cita
         crearCita(cita);
@@ -73,7 +66,7 @@ const Form = ({crearCita}) => {
         { error ? <p className="alerta-error">Todos los campos son obligatorios</p> : null }
 
         <form
-            onSubmit={e => submitCita(e)}
+            onSubmit={submitCita}
         >
             <label>Nombre Mascota</label>
             <input
@@ -81,7 +74,7 @@ const Form = ({crearCita}) => {
                 name="mascota"
                 className="u-full-width"
                 placeholder="Nombre Mascota"
-                onChange={e => actualizarState(e)}
+                onChange={actualizarState}
                 value={mascota}
             />
 
@@ -91,7 +84,7 @@ const Form = ({crearCita}) => {
                 name="propietario"
                 className="u-full-width"
                 placeholder="Nombre dueño de la mascota"
-                onChange={e => actualizarState(e)}
+                onChange={actualizarState}
                 value={propietario}
             />
 
@@ -100,7 +93,7 @@ const Form = ({crearCita}) => {
                 type="date"
                 name="fecha"
                 className="u-full-width"
-                onChange={e => actualizarState(e)}
+                onChange={actualizarState}
                 value={fecha}
             />
 
@@ -110,7 +103,7 @@ const Form = ({crearCita}) => {
                 name="hora"
                 className="u-full-width"
                 placeholder="Nombre dueño de la mascota"
-                onChange={e => actualizarState(e)}
+                onChange={actualizarState}
                 value={hora}
             />
 
@@ -118,7 +111,7 @@ const Form = ({crearCita}) => {
             <textarea
                 className="u-full-width"
                 name="sintomas"
-                onChange={e => actualizarState(e)}
+                onChange={actualizarState}
                 value={sintomas}
             ></textarea>
 
@@ -130,7 +123,7 @@ const Form = ({crearCita}) => {
 
         </form>
         </Fragment>
-    )
+    );
 }
 
 export default Form;
